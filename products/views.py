@@ -1,12 +1,17 @@
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import ProductSerializer, CategorySerializer, ReviewSerializer
 from .models import Product, Category, Review
+from .filters import ProductFilter
 
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter
 
 
 class CategoryViewSet(ModelViewSet):
