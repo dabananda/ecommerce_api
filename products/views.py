@@ -5,6 +5,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from .serializers import ProductSerializer, CategorySerializer, ReviewSerializer
 from .models import Product, Category, Review
 from .filters import ProductFilter
+from .paginations import DefaultPagination
 
 
 class ProductViewSet(ModelViewSet):
@@ -15,6 +16,7 @@ class ProductViewSet(ModelViewSet):
     filterset_class = ProductFilter
     search_fields = ['name', 'description', 'category__name']
     ordering_fields = ['name', 'price', 'created_at']
+    pagination_class = DefaultPagination
 
 
 class CategoryViewSet(ModelViewSet):
