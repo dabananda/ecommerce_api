@@ -6,6 +6,7 @@ from .serializers import ProductSerializer, CategorySerializer, ReviewSerializer
 from .models import Product, Category, Review
 from .filters import ProductFilter
 from .paginations import DefaultPagination
+from api.permissions import IsAdminOrReadOnly
 
 
 class ProductViewSet(ModelViewSet):
@@ -18,10 +19,14 @@ class ProductViewSet(ModelViewSet):
     ordering_fields = ['name', 'price', 'created_at']
     pagination_class = DefaultPagination
 
+    permission_classes = [IsAdminOrReadOnly]
+
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.annotate(product_count=Count('products')).all()
     serializer_class = CategorySerializer
+
+    permission_classes = [IsAdminOrReadOnly]
 
 
 class ReviewViewSet(ModelViewSet):
